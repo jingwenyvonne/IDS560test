@@ -17,11 +17,27 @@ import time
 # In[2]:
 
 
-# Use WebDriver to open a Chrome tab and navigate to Instagram login page
-chromedriver_path = "C:/Users/mtkta/Desktop/chromedriver_win32/chromedriver.exe"
-webdriver = webdriver.Chrome(executable_path = chromedriver_path)
-webdriver.get("https://www.instagram.com/accounts/login")
-sleep(1)
+# Use WebDriver to open a Chrome tab and navigate to Instagram login pageglobal driver
+def test_setup(self):
+     try:
+         global driver
+         chrome_options = webdriver.ChromeOptions()
+         chrome_options.add_argument('--headless')
+
+         driver = webdriver.Chrome(executable_path=binary_path, chrome_options=chrome_options)
+         driver.implicitly_wait(10)
+         driver.maximize_window()
+         yield
+         driver.close()
+         driver.quit()
+         print("Test Completed")
+       except:
+         print("Something is failing")
+         chrome_options = webdriver.ChromeOptions()
+         chrome_options.add_argument('--headless')
+
+
+
 
 
 # In[3]:
@@ -61,13 +77,15 @@ posts_to_reach_per_hashtag = 50
 
 # In[4]:
 
-
-
-username = webdriver.find_element_by_name("username")
-username.send_keys(un)
-password = webdriver.find_element_by_name("password")
-password.send_keys(pw)
-sleep(1)
+def login(self, test_setup):
+  try:
+      webdriver.get("https://www.instagram.com/accounts/login")
+      sleep(1)
+      username = webdriver.find_element_by_name("username")
+      username.send_keys(un)
+      password = webdriver.find_element_by_name("password")
+      password.send_keys(pw)
+      sleep(1)
 
 # Click login button
 login_Xpath = '//*[@id="loginForm"]/div/div[3]/button/div'
